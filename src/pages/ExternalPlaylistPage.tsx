@@ -14,6 +14,8 @@ import { convertTracklistToM3u } from "../logic/Utils";
 import PlaylistTop from "../components/PlaylistTop";
 import { ViewportList } from "react-viewport-list";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
+import ErrorPage from "./ErrorPage";
 
 const ExternalPlaylistPage = React.memo(function ExternalPlaylistPage() {
     const collectionID = useParams().collectionID;
@@ -49,8 +51,7 @@ const ExternalPlaylistPage = React.memo(function ExternalPlaylistPage() {
     if (collection === false) {
         return (
             <>
-                <Text h1>Error 404</Text>
-                <Text h2>Playlist Not Found.</Text>
+                <ErrorPage type="404" cause="playlist"></ErrorPage>
             </>
         )
     }
@@ -99,10 +100,10 @@ const ExternalPlaylistPage = React.memo(function ExternalPlaylistPage() {
         <>
             <PlaylistTop name={collection.getName()} trackCount={collection.getTrackListLength()} onPlay={playPlaylist} onShuffle={shufflePlaylist} image={collection.getThumbnailUrl()} contextMenu={
                 <Dropdown.Menu onAction={contextMenu} disabledKeys={["like"]}>
-                    <Dropdown.Item key="queue">Add to Queue</Dropdown.Item>
-                    <Dropdown.Item key="share">Copy Link</Dropdown.Item>
-                    <Dropdown.Item key="like">Like Playlist</Dropdown.Item>
-                    <Dropdown.Item key="m3u">Download as M3U</Dropdown.Item>
+                    <Dropdown.Item key="queue">{useTranslation("buttons.queue")}</Dropdown.Item>
+                    <Dropdown.Item key="share">{useTranslation("buttons.share")}</Dropdown.Item>
+                    <Dropdown.Item key="like">{useTranslation("buttons.likePlaylist")}</Dropdown.Item>
+                    <Dropdown.Item key="m3u">{useTranslation("buttons.m3u")}</Dropdown.Item>
                 </Dropdown.Menu>
             } />
             {tracklist && (

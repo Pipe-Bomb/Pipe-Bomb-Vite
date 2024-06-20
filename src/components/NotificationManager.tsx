@@ -9,7 +9,7 @@ let notificationDupeCount = 0;
 let mouseInTime: number;
 
 export interface NotificationInfo {
-    text: string,
+    text: React.ReactNode,
     status?: "normal" | "warning" | "error"
 }
 

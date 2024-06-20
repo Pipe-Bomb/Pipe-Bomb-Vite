@@ -20,6 +20,8 @@ import { useResizeDetector } from "react-resize-detector";
 import { BiPlus } from "react-icons/bi";
 import PipeBombConnection from "../logic/PipeBombConnection";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
+import ErrorPage from "./ErrorPage";
 
 const TrackPage = React.memo(function TrackPage() {
     let paramID: any = useParams().ID;
@@ -65,8 +67,7 @@ const TrackPage = React.memo(function TrackPage() {
 
     if (!trackMeta || !track) {
         return <>
-            <Text h1>Error 404</Text>
-            <Text h3>Track Not Found.</Text>
+            <ErrorPage type="404" cause="track"></ErrorPage>
         </>
     }
 
@@ -131,7 +132,7 @@ const TrackPage = React.memo(function TrackPage() {
         if (suggestions === null) {
             return (
                 <>
-                    <Text h2>Similar Tracks</Text>
+                    <Text h2>{useTranslation("pages.track.similar")}</Text>
                     <div className={styles.suggestionsLoader}>
                         <Loader />
                     </div>
@@ -144,8 +145,8 @@ const TrackPage = React.memo(function TrackPage() {
             const title = trackMeta ? trackMeta.title : "this";
             return (
                 <>
-                    <Text h2>Similar Tracks</Text>
-                    <Text h4>Couldn't find any tracks like <span className={styles.underline}>{title}</span></Text>
+                    <Text h2>{useTranslation("pages.track.similar")}</Text>
+                    <Text h4>{useTranslation("pages.track.error", <span className={styles.underline}>{title}</span>)}</Text>
                 </>
             )
         }
@@ -154,7 +155,7 @@ const TrackPage = React.memo(function TrackPage() {
             <>
                 <Grid.Container gap={2} alignItems="center">
                     <Grid>
-                        <Text h2>Similar Tracks</Text>
+                        <Text h2>{useTranslation("pages.track.similar")}</Text>
                     </Grid>
                     <Grid>
                         <Button size="md" auto onPress={playSuggestions} className={styles.roundButton} color="gradient"><MdPlayArrow /></Button>
@@ -219,11 +220,11 @@ const TrackPage = React.memo(function TrackPage() {
                                             </Button>
                                         </Dropdown.Trigger>
                                         <Dropdown.Menu disabledKeys={[]} onAction={contextMenu}>
-                                            <Dropdown.Item key="next-up">Play Next</Dropdown.Item>
-                                            <Dropdown.Item key="queue">Add to Queue</Dropdown.Item>
-                                            <Dropdown.Item key="share">Copy Link</Dropdown.Item>
-                                            <Dropdown.Item key="playlist">Add to Playlist</Dropdown.Item>
-                                            <Dropdown.Item key="download">Download as MP3</Dropdown.Item>
+                                            <Dropdown.Item key="next-up">{useTranslation("buttons.playNext")}</Dropdown.Item>
+                                            <Dropdown.Item key="queue">{useTranslation("buttons.queue")}</Dropdown.Item>
+                                            <Dropdown.Item key="share">{useTranslation("buttons.share")}</Dropdown.Item>
+                                            <Dropdown.Item key="playlist">{useTranslation("buttons.addToPlaylist")}</Dropdown.Item>
+                                            <Dropdown.Item key="download">{useTranslation("buttons.download")}</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Button light size="lg" className={styles.contextButton} onPress={() => openAddToPlaylist(track)}>

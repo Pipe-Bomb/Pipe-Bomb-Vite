@@ -9,6 +9,8 @@ import ImageWrapper from "../components/ImageWrapper";
 import { Text } from "@nextui-org/react"
 import PlaylistCollection from "../components/PlaylistCollection";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
+import ErrorPage from "./ErrorPage";
 
 const UserPage = React.memo(function UserPage() {
     const userID = useParams().userID;
@@ -32,15 +34,14 @@ const UserPage = React.memo(function UserPage() {
     if (user === false) {
         return (
             <>
-                <Text h1>Error 404</Text>
-                <Text h3>User Not Found.</Text>
+                <ErrorPage type="404" cause="user"></ErrorPage>
             </>
         )
     }
 
     if (!user) {
         return (
-            <Loader text="Loading User" />
+            <Loader text={useTranslation("common.loader.user") as string} />
         )
     }
 
@@ -60,7 +61,7 @@ const UserPage = React.memo(function UserPage() {
 
             { !!playlists.length && (
                 <div className={styles.playlists}>
-                    <Text h2>Playlists</Text>
+                    <Text h2>{useTranslation("pages.user.playlists")}</Text>
                     <div className={styles.playlistContainer}>
                         <PlaylistCollection playlists={playlists} />
                     </div>

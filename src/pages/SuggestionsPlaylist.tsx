@@ -12,6 +12,8 @@ import TrackList from "pipebomb.js/dist/collection/TrackList";
 import useTrack from "../hooks/TrackHook";
 import useTrackMeta from "../hooks/TrackMetaHook";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
+import ErrorPage from "./ErrorPage";
 
 const SuggestionsPlaylist = React.memo(function SuggestionsPlaylist() {
     let paramID: any = useParams().ID;
@@ -42,8 +44,7 @@ const SuggestionsPlaylist = React.memo(function SuggestionsPlaylist() {
 
     if (!trackMeta) {
         return <>
-            <Text h1>Error 404</Text>
-            <Text h3>Track Not Found.</Text>
+            <ErrorPage type="404" cause="track"></ErrorPage>
         </>
     }
 
@@ -51,7 +52,7 @@ const SuggestionsPlaylist = React.memo(function SuggestionsPlaylist() {
         if (suggestions === null) {
             return <>
                 {trackMeta && (
-                    <Text h4>A collection of tracks similar to <span className={styles.underline}>{trackMeta.title}</span></Text>
+                    <Text h4>{useTranslation("pages.suggestions.description", <span className={styles.underline}>{trackMeta.title}</span>)}</Text>
                 )}
                 <Loader text="Loading Tracks" />
             </>
@@ -59,13 +60,13 @@ const SuggestionsPlaylist = React.memo(function SuggestionsPlaylist() {
 
         if (!suggestions || !suggestions.getTrackList().length) {
             const title = trackMeta ? trackMeta.title : "Unknown Track";
-            return <Text h4>Couldn't find any tracks like <span className={styles.underline}>{title}</span></Text>
+            return <Text h4>{useTranslation("pages.suggestions.error", <span className={styles.underline}>{title}</span>)}</Text>
         }
 
         return (
             <>
                 {trackMeta && (
-                    <Text h4>A collection of tracks similar to <span className={styles.underline}>{trackMeta.title}</span></Text>
+                    <Text h4>{useTranslation("pages.suggestions.description", <span className={styles.underline}>{trackMeta.title}</span>)}</Text>
                 )}
                 <Grid.Container gap={2} alignItems="center">
                     <Grid>
@@ -98,7 +99,7 @@ const SuggestionsPlaylist = React.memo(function SuggestionsPlaylist() {
 
     return (
         <>
-            <Text h1>Suggestions</Text>
+            <Text h1>{useTranslation("pages.suggestions.title")}</Text>
             { generateListHTML() }
         </>
     )

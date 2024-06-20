@@ -7,6 +7,7 @@ import AudioPlayer from "../logic/AudioPlayer";
 import Loader from "./Loader";
 import useWindowSize from "../hooks/WindowSizeHook";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
 
 const Lyrics = React.memo(function Lyrics() {
     const track = useCurrentTrack();
@@ -76,8 +77,8 @@ const Lyrics = React.memo(function Lyrics() {
     if (!track) {
         return (
             <>
-                <h1>Lyrics</h1>
-                <h3>Play a track to view its lyrics.</h3>
+                <h1>{useTranslation("lyrics.title")}</h1>
+                <h3>{useTranslation("lyrics.description")}</h3>
             </>
         )
     }
@@ -85,8 +86,8 @@ const Lyrics = React.memo(function Lyrics() {
     if (lyrics === null) {
         return (
             <>
-                <h1>Lyrics</h1>
-                <Loader text="Loading lyrics" />
+                <h1>{useTranslation("lyrics.title")}</h1>
+                <Loader text={useTranslation("common.loader.lyrics") as string} />
             </>
         )
     }
@@ -94,8 +95,8 @@ const Lyrics = React.memo(function Lyrics() {
     if (!lyrics) {
         return (
             <>
-                <h1>Lyrics</h1>
-                <h3>We couldn't find any lyrics for this track.</h3>
+                <h1>{useTranslation("lyrics.title")}</h1>
+                <h3>{useTranslation("lyrics.error")}</h3>
             </>
         )
     }
@@ -120,11 +121,11 @@ const Lyrics = React.memo(function Lyrics() {
 
     return (
         <div className={styles.container}>
-            <h1>Lyrics</h1>
+            <h1>{useTranslation("lyrics.title")}</h1>
             {!lyrics.synced && (
-                <h4>These lyrics aren't synced with the track.</h4>
+                <h4>{useTranslation("lyrics.notSynced")}</h4>
             )}
-            <h5>Lyrics by { lyrics.provider }</h5>
+            <h5>{useTranslation("lyrics.title", lyrics.provider)}</h5>
             
             <div className={styles.fadeContainer + (lyrics.synced ? ` ${styles.synced}` : "")}>
                 <div className={styles.mainContainer}>

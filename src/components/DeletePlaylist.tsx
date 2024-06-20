@@ -6,6 +6,7 @@ import styles from "../styles/AddToPlaylist.module.scss";
 import { openCreatePlaylist } from "./CreatePlaylist";
 import Playlist from 'pipebomb.js/dist/collection/Playlist';
 import React from 'react';
+import useTranslation from '../hooks/TranslationHook';
 
 let openModal = () => {};
 let addToPlaylist = (playlist: Playlist) => {};
@@ -86,7 +87,7 @@ const AddToPlaylist = React.memo(function AddToPlaylist() {
             ))}
             <Grid.Container justify="flex-end">
                 <Grid>
-                    <Button onPress={() => openCreatePlaylist(selectedTrack || undefined)} className={styles.newPlaylist} bordered auto>New Playlist</Button>
+                    <Button onPress={() => openCreatePlaylist(selectedTrack || undefined)} className={styles.newPlaylist} bordered auto>{useTranslation("button.newPlaylist")}</Button>
                 </Grid>
             </Grid.Container>
         </Modal>

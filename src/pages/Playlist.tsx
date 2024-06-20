@@ -18,6 +18,8 @@ import PlaylistTop from "../components/PlaylistTop";
 import useIsSelf from "../hooks/IsSelfHook";
 import { ViewportList } from "react-viewport-list";
 import { openRenamePlaylist } from "../components/RenamePlaylist"
+import useTranslation from "../hooks/TranslationHook";
+import ErrorPage from "./ErrorPage";
 
 let lastPlaylistID = "";
 
@@ -31,6 +33,13 @@ const PlaylistPage = React.memo(function PlaylistPage() {
     const navigate = useNavigate();
     const self = useIsSelf(playlist?.owner);
 
+    // context menu
+    const queueTranslation = useTranslation("buttons.queue");
+    const shareTranslation = useTranslation("buttons.share");
+    const renamePlaylistTranslation = useTranslation("buttons.renamePlaylist");
+    const likeTranslation = useTranslation("buttons.likePlaylist");
+    const m3uTranslation = useTranslation("buttons.m3u");
+    const deletePlaylistTranslation = useTranslation("buttons.deletePlaylist");
 
     const playlistID: string = paramID;
 
@@ -90,8 +99,7 @@ const PlaylistPage = React.memo(function PlaylistPage() {
     if (errorCode == 400) {
         return (
             <>
-                <Text h1>Error 404</Text>
-                <Text h3>Playlist Not Found.</Text>
+                <ErrorPage type="404" cause="playlist"></ErrorPage>
             </>
         )
     }
@@ -99,8 +107,7 @@ const PlaylistPage = React.memo(function PlaylistPage() {
     if (paramID === undefined || errorCode != 0) {
         return (
             <>
-                <Text h1>Error 500</Text>
-                <Text h3>Something went wrong!</Text>
+                <ErrorPage type="500"></ErrorPage>
             </>
         )
     }
@@ -117,7 +124,6 @@ const PlaylistPage = React.memo(function PlaylistPage() {
             </>
         )
     }
-
 
     const newTrackList: Track[] = trackList || [];
 
@@ -180,20 +186,20 @@ const PlaylistPage = React.memo(function PlaylistPage() {
         if (self) {
             return (
                 <Dropdown.Menu onAction={contextMenu}>
-                    <Dropdown.Item key="queue">Add to Queue</Dropdown.Item>
-                    <Dropdown.Item key="share">Copy Link</Dropdown.Item>
-                    <Dropdown.Item key="rename">Rename Playlist</Dropdown.Item>
-                    <Dropdown.Item key="m3u">Download as M3U</Dropdown.Item>
-                    <Dropdown.Item key="delete" color="error">Delete Playlist</Dropdown.Item>
+                    <Dropdown.Item key="queue">{queueTranslation}</Dropdown.Item>
+                    <Dropdown.Item key="share">{shareTranslation}</Dropdown.Item>
+                    <Dropdown.Item key="rename">{renamePlaylistTranslation}</Dropdown.Item>
+                    <Dropdown.Item key="m3u">{m3uTranslation}</Dropdown.Item>
+                    <Dropdown.Item key="delete" color="error">{deletePlaylistTranslation}</Dropdown.Item>
                 </Dropdown.Menu>
             );
         } else {
             return (
                 <Dropdown.Menu onAction={contextMenu} disabledKeys={["like"]}>
-                    <Dropdown.Item key="queue">Add to Queue</Dropdown.Item>
-                    <Dropdown.Item key="share">Copy Link</Dropdown.Item>
-                    <Dropdown.Item key="like">Like Playlist</Dropdown.Item>
-                    <Dropdown.Item key="m3u">Download as M3U</Dropdown.Item>
+                    <Dropdown.Item key="queue">{queueTranslation}</Dropdown.Item>
+                    <Dropdown.Item key="share">{shareTranslation}</Dropdown.Item>
+                    <Dropdown.Item key="like">{likeTranslation}</Dropdown.Item>
+                    <Dropdown.Item key="m3u">{m3uTranslation}</Dropdown.Item>
                 </Dropdown.Menu>
             )
         }

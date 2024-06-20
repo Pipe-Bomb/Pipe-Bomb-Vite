@@ -10,6 +10,7 @@ import useSetting from "../hooks/SettingHook";
 import styles from "../styles/SettingsPage.module.scss"
 import { useResizeDetector } from "react-resize-detector";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
 
 const themeObject = Theme.getTheme(getSetting("theme", "Classic"));
 
@@ -96,12 +97,12 @@ const SettingsPage = React.memo(function SettingsPage() {
 
     return (
         <>
-            <h1>Settings</h1>
+            <h1>{useTranslation("pages.settings.title")}</h1>
 
 
             <Text h3>Theme</Text>
             {themeChanged && (
-                <p>Reload for changes to take effect</p>
+                <p>{useTranslation("pages.settings.reloadNotice")}</p>
             )}
             <Dropdown>
                 <Dropdown.Button color="secondary">
@@ -116,9 +117,9 @@ const SettingsPage = React.memo(function SettingsPage() {
 
             <Spacer y={2} />
 
-            <Text h3>Equalizer</Text>
+            <Text h3>{useTranslation("pages.settings.equalizer")}</Text>
             {!nodes.length ? (
-                <p>Play a track to load the EQ</p>
+                <p>{useTranslation("pages.settings.equalizer.notice")}</p>
             ) : (
                 <>
                     <div className={styles.eqGraph} ref={eqRef}>
@@ -139,7 +140,7 @@ const SettingsPage = React.memo(function SettingsPage() {
 
             <Spacer y={2} />
 
-            <Button color="error" onPress={logout}>Logout</Button>
+            <Button color="error" onPress={logout}>{useTranslation("buttons.logout")}</Button>
         </>
     )
 });

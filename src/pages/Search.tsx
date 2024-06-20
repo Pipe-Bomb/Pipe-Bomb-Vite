@@ -13,6 +13,7 @@ import { TbMoodEmpty } from "react-icons/tb";
 import CenterIcon from "../components/CenterIcon";
 import PlaylistCollection from "../components/PlaylistCollection";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
 
 interface storedResults {
     tracks: Track[],
@@ -125,11 +126,11 @@ const SearchPage = React.memo(function SearchPage() {
             const firstTracks = newTracklist.splice(0, 5);
             if (playlists.length) {
                 return <>
-                    <Text h2>Top Results</Text>
+                    <Text h2>{useTranslation("pages.search.top")}</Text>
                     {firstTracks.map((item, index) => (
                         <ListTrack key={index} track={item} />
                     ))}
-                    <Text h2>Playlists</Text>
+                    <Text h2>{useTranslation("pages.search.playlists")}</Text>
                     <div className={styles.playlists}>
                         <PlaylistCollection>
                             {playlists.map((item, index) => (
@@ -138,7 +139,7 @@ const SearchPage = React.memo(function SearchPage() {
                         </PlaylistCollection>
                     </div>
                     {!!newTracklist.length && (
-                        <Text h2>More Results</Text>
+                        <Text h2>{useTranslation("pages.search.loadMore")}</Text>
                     )}
                     {newTracklist.map((item, index) => (
                         <ListTrack key={index} track={item} />
@@ -146,12 +147,12 @@ const SearchPage = React.memo(function SearchPage() {
                 </>
             } else {
                 return <>
-                    <Text h2>Top Results</Text>
+                    <Text h2>{useTranslation("pages.search.top")}</Text>
                     {firstTracks.map((item, index) => (
                         <ListTrack key={index} track={item} />
                     ))}
                     {!!newTracklist.length && (
-                        <Text h2>More Results</Text>
+                        <Text h2>{useTranslation("pages.search.loadMore")}</Text>
                     )}
                     {newTracklist.map((item, index) => (
                         <ListTrack key={index} track={item} />
@@ -183,7 +184,7 @@ const SearchPage = React.memo(function SearchPage() {
                 className={styles.button}
                 auto
             >
-                Search
+                {useTranslation("buttons.search")}
             </Button>
         </div>
         { generateServices() }

@@ -1,0 +1,11 @@
+{
+	"languages": {
+		"en-US": {
+			"displayName": "English (United States)"
+		}
+	},
+	"primaryDialects": {
+		"en": "en-US"
+	},
+	"default": "en-US"
+}

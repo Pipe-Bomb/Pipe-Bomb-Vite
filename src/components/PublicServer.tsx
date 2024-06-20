@@ -7,6 +7,7 @@ import { formatTimeWords } from "../logic/Utils";
 import { useState } from "react";
 import ServerIndex from "../logic/ServerIndex";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
 
 export interface PublicServerProps {
     server: ServerInfo,
@@ -50,7 +51,7 @@ const PublicServer = React.memo(function PublicServer({ server, connectCallback 
     function generatePingHTML() {
         if (ping == false) {
             return (
-                <Button onClick={getPing} auto bordered size="sm">Get Ping</Button>
+                <Button onClick={getPing} auto bordered size="sm">{useTranslation("buttons.connect.getPing")}</Button>
             )
         }
 
@@ -76,7 +77,7 @@ const PublicServer = React.memo(function PublicServer({ server, connectCallback 
                     <Text h5>{server.address}</Text>
                 </Grid>
                 <Grid className={styles.details}>
-                    <Text h5>Uptime: <span>{formatTimeWords(server.uptime)}</span></Text>
+                    <Text h5>{useTranslation("pages.connect.uptime", <span className={styles.value}>{formatTimeWords(server.uptime)}</span>)}</Text>
                     <div className={styles.ping}>
                         <Text h5>Ping: </Text>
                         { generatePingHTML() }

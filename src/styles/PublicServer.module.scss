@@ -62,7 +62,7 @@
         h5 {
             font-weight: var(--nextui-fontWeights-normal);
 
-            & > span {
+            & > span.value {
                 font-weight: var(--nextui-fontWeights-semibold);
             }
         }

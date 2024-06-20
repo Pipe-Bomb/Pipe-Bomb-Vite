@@ -14,6 +14,7 @@ import Track from "pipebomb.js/dist/music/Track";
 import PipeBombConnection from "../logic/PipeBombConnection";
 import { ViewportList } from "react-viewport-list";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
 
 const ChartPage = React.memo(function ChartPage() {
     let paramID: any = useParams().chartID;
@@ -90,9 +91,9 @@ const ChartPage = React.memo(function ChartPage() {
                             </Button>
                         </Dropdown.Trigger>
                         <Dropdown.Menu onAction={contextMenu}>
-                            <Dropdown.Item key="queue">Add to Queue</Dropdown.Item>
-                            <Dropdown.Item key="share">Copy Link</Dropdown.Item>
-                            <Dropdown.Item key="m3u">Download as M3U</Dropdown.Item>
+                            <Dropdown.Item key="queue">{useTranslation("buttons.queue")}</Dropdown.Item>
+                            <Dropdown.Item key="share">{useTranslation("buttons.share")}</Dropdown.Item>
+                            <Dropdown.Item key="m3u">{useTranslation("buttons.m3u")}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                     

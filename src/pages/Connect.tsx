@@ -8,6 +8,7 @@ import ServerInfo from "pipebomb.js/dist/ServerInfo";
 import Loader from "../components/Loader";
 import PublicServer from "../components/PublicServer";
 import React from "react";
+import useTranslation from "../hooks/TranslationHook";
 
 const ConnectPage = React.memo(function ConnectPage() {
     const serverIndex = ServerIndex.getInstance();
@@ -46,7 +47,7 @@ const ConnectPage = React.memo(function ConnectPage() {
     function generateRegistryHTML() {
         if (registryServers === false) {
             return (
-                <Text h4>Couldn't contact public server registry</Text>
+                <Text h4>{useTranslation("pages.connect.publicServers.error")}</Text>
             )
         }
 
@@ -69,13 +70,13 @@ const ConnectPage = React.memo(function ConnectPage() {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Connect to Server</h1>
+            <h1 className={styles.title}>{useTranslation("pages.connect.title")}</h1>
             <Grid.Container className={styles.addContainer} alignItems="center" gap={3}>
                 <Grid style={{flexGrow: 1}}>
                     <Input ref={input} clearable underlined labelPlaceholder="Server URL" size="xl" fullWidth onKeyDown={keyPress} onChange={e => setValue(e.target.value)} initialValue={value} />
                 </Grid>
                 <Grid>
-                    <Button auto size="lg" bordered onPress={() => addServer()}>Add</Button>
+                    <Button auto size="lg" bordered onPress={() => addServer()}>{useTranslation("buttons.add")}</Button>
                 </Grid>
             </Grid.Container>
             <div className={styles.servers}>
@@ -83,7 +84,7 @@ const ConnectPage = React.memo(function ConnectPage() {
                     <Server key={server.host} hostInfo={server} status={serverIndex.getServerStatus(server)}></Server>
                 ))}
             </div>
-            <Text h2>Public Servers</Text>
+            <Text h2>{useTranslation("pages.connect.publicServers")}</Text>
             { generateRegistryHTML() }
         </div>
     )
